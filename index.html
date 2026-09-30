@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lapse — Never miss a payment deadline</title>
+<meta name="description" content="Lapse tracks your bills, subscriptions, and dues, and reminds you before they're late. Simple deadline tracking for Android." />
+
+<!-- Open Graph -->
+<meta property="og:title" content="Lapse — Never miss a payment deadline" />
+<meta property="og:description" content="Track every bill, subscription, and due date. Get reminded before it's late." />
+<meta property="og:type" content="website" />
+
+<!-- GA4 (Google Analytics 4) -->
+<!-- TODO(growth): replace G-XXXXXXXXXX with the real Lapse GA4 Measurement ID once the property exists. Page will not send real hits until this is swapped. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
+
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="nav">
+  <div class="container nav-inner">
+    <span class="wordmark">Lapse</span>
+    <a href="#waitlist" class="nav-cta">Notify me</a>
+  </div>
+</header>
+
+<!-- 1. Hero -->
+<section class="hero">
+  <div class="container hero-inner">
+    <h1>Never miss a payment deadline again.</h1>
+    <p class="hero-sub">Lapse tracks your bills, subscriptions, and dues — and reminds you before they're late. No bank linking, no spreadsheets, just deadlines you actually see coming.</p>
+
+    <form class="waitlist-form" id="waitlist-form-hero" data-location="hero" novalidate>
+      <div class="waitlist-row">
+        <input type="email" name="email" placeholder="you@example.com" required aria-label="Email address" />
+        <button type="submit">Notify me</button>
+      </div>
+      <input type="hidden" name="utm_source" />
+      <input type="hidden" name="utm_medium" />
+      <input type="hidden" name="utm_campaign" />
+      <p class="form-status" role="status" aria-live="polite"></p>
+    </form>
+
+    <p class="hero-note">Pre-launch. Android, coming to Google Play. No spam, one email when it's ready.</p>
+  </div>
+</section>
+
+<!-- 2. How it works -->
+<section class="how" id="how-it-works">
+  <div class="container">
+    <h2>How it works</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Add a deadline</h3>
+        <p>Amount, due date, category. Takes ten seconds — no linked accounts, no imports.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Get reminded</h3>
+        <p>Local notifications before it's due. Works fully offline — your data never has to leave your phone.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Stay ahead</h3>
+        <p>See what's due this month and your total outflow at a glance, before anything lapses.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. Pricing preview (inert — no payment logic yet) -->
+<section class="pricing" id="pricing">
+  <div class="container">
+    <h2>Pricing</h2>
+    <p class="pricing-sub">Prices below are what we're testing pre-launch — not final, no charge today.</p>
+
+    <div class="pricing-grid">
+      <div class="price-card" data-tier="free">
+        <h3>Free</h3>
+        <p class="price">₹0</p>
+        <ul>
+          <li>Up to 5 tracked deadlines</li>
+          <li>One reminder per deadline</li>
+          <li>Local notifications, fully offline</li>
+        </ul>
+        <!-- Reserved checkout slot: free tier has no checkout action. -->
+        <div class="price-cta-slot" data-checkout-slot="free"></div>
+      </div>
+
+      <div class="price-card price-card--pro" data-tier="plus">
+        <h3>Lapse Plus</h3>
+        <p class="price">₹99–149<span>/yr</span></p>
+        <ul>
+          <li>Unlimited tracked deadlines</li>
+          <li>Multi-stage reminders</li>
+          <li>Categories + monthly outflow total</li>
+          <li>Home-screen widget</li>
+          <li>CSV export / backup</li>
+        </ul>
+        <!--
+          Reserved checkout slot for Lapse Plus.
+          Payment logic is intentionally NOT implemented yet (pre-launch, no app to entitle against).
+          When ready: drop a Razorpay/Cashfree web checkout button/script into this slot in place of
+          the "Notify me" fallback below. Keep .price-cta-slot as the mount point so no redesign is
+          needed — same card markup, same grid position. Annual billing only, per GAM-7.
+        -->
+        <div class="price-cta-slot" data-checkout-slot="plus">
+          <a href="#waitlist" class="btn btn-secondary">Notify me when Plus launches</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. Waitlist (footer instance) + 5. Footer -->
+<footer class="site-footer" id="waitlist">
+  <div class="container footer-inner">
+    <div class="footer-waitlist">
+      <h2>Get notified when Lapse launches</h2>
+      <form class="waitlist-form" id="waitlist-form-footer" data-location="footer" novalidate>
+        <div class="waitlist-row">
+          <input type="email" name="email" placeholder="you@example.com" required aria-label="Email address" />
+          <button type="submit">Notify me</button>
+        </div>
+        <input type="hidden" name="utm_source" />
+        <input type="hidden" name="utm_medium" />
+        <input type="hidden" name="utm_campaign" />
+        <p class="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+
+    <div class="footer-links">
+      <div class="footer-col">
+        <h4>Lapse</h4>
+        <!--
+          Google Play button, wired but not shown pre-launch (PLAY_STORE_PACKAGE unset in script.js).
+          Once the app is live: set PLAY_STORE_PACKAGE and this link appears automatically with
+          &referrer=<urlencoded utm_source=...&utm_medium=...&utm_campaign=...> appended, so the
+          Play Install Referrer API can read attribution on first app open. No markup change needed.
+          TODO(mobile): wire first-open referrer logging in Lapse's first-run code against this param
+          once that code path exists (tracked separately, not part of this landing page).
+        -->
+        <a href="#" id="play-store-link" class="play-store-link" style="display:none" rel="noopener">Get it on Google Play</a>
+      </div>
+      <div class="footer-col">
+        <h4>Social</h4>
+        <!-- TODO(growth): placeholder handles — swap for real channel links once Nia sets these up. -->
+        <a href="https://twitter.com/lapseapp" rel="noopener">Twitter / X</a>
+        <a href="https://t.me/lapseapp" rel="noopener">Telegram</a>
+        <a href="https://reddit.com/r/lapseapp" rel="noopener">Reddit</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <!-- TODO(growth): placeholder contact address — swap once a real inbox exists. -->
+        <a href="mailto:hello@lapse.app">hello@lapse.app</a>
+      </div>
+    </div>
+    <p class="footer-copy">&copy; 2026 Gamada. Lapse is in pre-launch — nothing is charged yet.</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
