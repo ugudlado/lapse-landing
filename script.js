@@ -65,8 +65,8 @@ async function submitWaitlist(form, utm) {
     form.reset();
     fillHiddenUtmFields(form, utm);
 
-    if (typeof gtag === "function") {
-      gtag("event", "generate_lead", {
+    if (typeof posthog !== "undefined" && posthog.capture) {
+      posthog.capture("generate_lead", {
         form_location: form.dataset.location,
         utm_source: utm.utm_source,
         utm_medium: utm.utm_medium,
