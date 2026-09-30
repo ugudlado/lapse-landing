@@ -38,11 +38,14 @@
     <h1>Never miss a payment deadline again.</h1>
     <p class="hero-sub">Lapse tracks your bills, subscriptions, and dues — and reminds you before they're late. No bank linking, no spreadsheets, just deadlines you actually see coming.</p>
 
-    <form class="waitlist-form" id="waitlist-form-hero" data-location="hero" novalidate>
+    <form class="waitlist-form" id="waitlist-form-hero" data-location="hero" name="waitlist" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+      <input type="hidden" name="form-name" value="waitlist" />
+      <p class="hp-field"><label>Leave this field empty: <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
       <div class="waitlist-row">
         <input type="email" name="email" placeholder="you@example.com" required aria-label="Email address" />
         <button type="submit">Notify me</button>
       </div>
+      <input type="hidden" name="location" value="hero" />
       <input type="hidden" name="utm_source" />
       <input type="hidden" name="utm_medium" />
       <input type="hidden" name="utm_campaign" />
@@ -126,11 +129,14 @@
   <div class="container footer-inner">
     <div class="footer-waitlist">
       <h2>Get notified when Lapse launches</h2>
-      <form class="waitlist-form" id="waitlist-form-footer" data-location="footer" novalidate>
+      <form class="waitlist-form" id="waitlist-form-footer" data-location="footer" name="waitlist" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+        <input type="hidden" name="form-name" value="waitlist" />
+        <p class="hp-field"><label>Leave this field empty: <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
         <div class="waitlist-row">
           <input type="email" name="email" placeholder="you@example.com" required aria-label="Email address" />
           <button type="submit">Notify me</button>
         </div>
+        <input type="hidden" name="location" value="footer" />
         <input type="hidden" name="utm_source" />
         <input type="hidden" name="utm_medium" />
         <input type="hidden" name="utm_campaign" />

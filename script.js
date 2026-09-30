@@ -1,8 +1,3 @@
-// TODO(growth): set this to the deployed Apps Script web app "exec" URL once
-// apps-script/Code.gs is deployed (Deploy > New deployment > Web app, access: Anyone).
-// See apps-script/README.md for the deploy steps. Form submits are inert until this is set.
-const WAITLIST_ENDPOINT = "";
-
 // TODO(mobile): set this to the real Play Store package name once Lapse is published,
 // e.g. "com.gamada.lapse". Until set, the Play Store link stays hidden (see index.html).
 const PLAY_STORE_PACKAGE = "";
@@ -46,26 +41,25 @@ function setStatus(form, state, message) {
 
 async function submitWaitlist(form, utm) {
   const email = form.querySelector('[name="email"]').value.trim();
+  const honeypot = form.querySelector('[name="bot-field"]').value;
   const button = form.querySelector("button");
 
-  if (!WAITLIST_ENDPOINT) {
-    setStatus(form, "error", "Signups aren't wired up yet — check back soon.");
-    return;
-  }
+  if (honeypot) return; // silently drop — bot filled the hidden field
 
   button.disabled = true;
   setStatus(form, "pending", "Submitting…");
 
   try {
-    // Apps Script web apps don't return CORS headers for simple POSTs read back
-    // client-side, so this fires as a no-cors request: we can't read the response body,
-    // but the row still lands in the Sheet. Treat "the fetch didn't throw" as success.
-    await fetch(WAITLIST_ENDPOINT, {
+    // Netlify Forms: POST url-encoded form data (incl. form-name) to the site root.
+    // Same-origin, so we can read the response — a non-2xx means the submission wasn't recorded.
+    const body = new URLSearchParams(new FormData(form));
+    const response = await fetch("/", {
       method: "POST",
-      mode: "no-cors",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams({ email, ...utm }).toString(),
+      body: body.toString(),
     });
+
+    if (!response.ok) throw new Error(`Netlify Forms responded ${response.status}`);
 
     setStatus(form, "ok", "You're on the list!");
     form.reset();
