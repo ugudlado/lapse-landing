@@ -21,10 +21,15 @@ a static host at this folder.
    spec asked for, with zero extra connection or backend to deploy. Export to CSV from that
    dashboard if a spreadsheet view is ever needed. A hidden honeypot field (`bot-field`) provides
    basic spam filtering at no cost.
-3. **PostHog** — connect PostHog via the Paperclip connection card (pending) and swap
-   `phc_REPLACE_ME` in `index.html` for the real project API key. Pageviews are autocaptured
-   by the snippet; `generate_lead` fires on waitlist submit (see `script.js`). If the project
-   lives outside PostHog Cloud US, also update `api_host`.
+3. **PostHog** — connected. `index.html` carries a live token (`phc_rqwFv5f...`). A dedicated
+   "Lapse" project was requested but the org's PostHog plan caps it at 1 project (`project-create`
+   returned a 403 plan-limit error) — upgrading is a billing decision outside mobile-eng scope, so
+   this is flagged on GAM-9 rather than silently paid for. Using the shared default project
+   instead: `posthog.register({ app: 'lapse' })` runs right after `posthog.init` so every event
+   (autocaptured pageviews + the `generate_lead` event in `script.js`) carries `app=lapse` and
+   stays filterable once Weave's landing page starts sending events into the same project. Revisit
+   and split into a real per-app project if/when the plan is upgraded. If the project ever moves
+   off PostHog Cloud US, also update `api_host`.
 4. **Play Store link** — set `PLAY_STORE_PACKAGE` in `script.js` once the app is live. The
    referrer query param is already wired (see `wirePlayStoreLink` in `script.js`); this is a
    one-line swap, not a redesign.
